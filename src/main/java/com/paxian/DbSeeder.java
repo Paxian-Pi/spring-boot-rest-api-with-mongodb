@@ -20,6 +20,17 @@ public class DbSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Hotel sheraton = new Hotel(
+                "Sheraton",
+                130,
+                new Address("Lagos", "Nigeria"),
+                Arrays.asList(
+                        new Review("Matt", 8, false),
+                        new Review("Regina", 7, true),
+                        new Review("Chris", 7, true)
+                )
+        );
+
         Hotel marriot = new Hotel(
                 "Marriot",
                 130,
@@ -50,7 +61,7 @@ public class DbSeeder implements CommandLineRunner {
         this.hotelRepository.deleteAll();
 
         //add our hotels to the database
-        List<Hotel> hotels = Arrays.asList(marriot, ibis, intercontinental);
+        List<Hotel> hotels = Arrays.asList(sheraton, marriot, ibis, intercontinental);
         this.hotelRepository.saveAll(hotels);
     }
 }
