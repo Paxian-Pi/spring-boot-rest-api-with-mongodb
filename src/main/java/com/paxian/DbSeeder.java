@@ -22,7 +22,7 @@ public class DbSeeder implements CommandLineRunner {
 
         Hotel sheraton = new Hotel(
                 "Sheraton",
-                130,
+                180,
                 new Address("Lagos", "Nigeria"),
                 Arrays.asList(
                         new Review("Matt", 8, false),
