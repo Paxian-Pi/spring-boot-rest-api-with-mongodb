@@ -19,15 +19,15 @@ public class HotelController {
 
     @GetMapping("/all")
     public List<Hotel> getAll() {
-        return this.hotelRepository.findAll();
+        return (List<Hotel>) this.hotelRepository.findAll();
     }
 
-    @PutMapping
+    /*@PutMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> modifyHotel(@RequestBody Hotel hotel){
         this.hotelRepository.insert(hotel);
         return new ResponseEntity<>("Hotel object Inserted successfully!", HttpStatus.OK);
-    }
+    }*/
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
