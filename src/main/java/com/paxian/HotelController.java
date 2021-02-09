@@ -1,5 +1,7 @@
 package com.paxian;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,8 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/hotel")
+@RequestMapping("/api")
 public class HotelController {
+
+    Logger logger = LoggerFactory.getLogger(HotelController.class);     //go to application properties
 
     public HotelRepository hotelRepository;
 
@@ -17,63 +21,64 @@ public class HotelController {
         this.hotelRepository = hotelRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/hotel")
     public List<Hotel> getAll() {
         return this.hotelRepository.findAll();
     }
 
-    @PutMapping
+    @PutMapping("/hotel")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> modifyHotel(@RequestBody Hotel hotel){
+        logger.trace("Logging...");
         this.hotelRepository.insert(hotel);
         return new ResponseEntity<>("Hotel object Inserted successfully!", HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/hotel")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> update(@RequestBody Hotel hotel){
         this.hotelRepository.save(hotel);
         return new ResponseEntity<>("Hotel has been updated!", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/hotel/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> delete(@PathVariable("id") Hotel id){
         this.hotelRepository.delete(id);
         return new ResponseEntity<>("Deleted successfully!", HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/hotel/{id}")
     public Optional<Hotel> getById(@PathVariable("id") String id){
         return this.hotelRepository.findById(id);
     }
 
-    @GetMapping("/price/{maxPrice}")
+    @GetMapping("/hotel/price/{maxPrice}")
     public List<Hotel> getByPricePerNight(@PathVariable("maxPrice") int maxPrice){
         return this.hotelRepository.findByPricePerNightLessThan(maxPrice);
     }
 
-    @GetMapping("/address/{city}")
+    @GetMapping("/hotel/address/{city}")
     public List<Hotel> getByCity(@PathVariable("city") String city) {
         return this.hotelRepository.findByCity(city);
     }
 
-    @GetMapping("/country/{country}")
+    @GetMapping("/hotel/country/{country}")
     public List<Hotel> getByCountry(@PathVariable("country") String country) {
         return this.hotelRepository.findByCountry(country);
     }
 
-    @GetMapping("/goodPrice")
+    @GetMapping("/hotel/goodPrice")
     public List<Hotel> getByPriceLessThanHundred(){
         return this.hotelRepository.findByPriceLessThanHundred();
     }
 
-    @GetMapping("/goodRating")
+    @GetMapping("/hotel/goodRating")
     public List<Hotel> getByGoodRating(){
         return this.hotelRepository.findByGoodRating();
     }
 
-    @GetMapping("/recommended_with_good_rating_and_fair_price")
+    @GetMapping("/hotel/recommended_with_good_rating_and_fair_price")
     public List<Hotel> getAllRecommended(){
         return this.hotelRepository.findByAllRecommendedWithGoodRatingAndFairPrice();
     }
