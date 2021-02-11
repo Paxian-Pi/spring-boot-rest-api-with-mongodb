@@ -27,7 +27,8 @@ public class DbSeeder implements CommandLineRunner {
                 Arrays.asList(
                         new Review("Matt", 8, false),
                         new Review("Regina", 7, true),
-                        new Review("Chris", 7, true)
+                        new Review("Stephen", 5, true),
+                        new Review("Martina", 3, false)
                 )
         );
 
